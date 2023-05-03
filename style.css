@@ -1,19 +1,59 @@
+/* Estilo geral da página */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+/* Estilo da tabela de equipes */
 table {
-  width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 800px;
 }
+
 th, td {
-  padding: 8px;
+  padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  vertical-align: top;
 }
+
 th {
   background-color: #f2f2f2;
 }
-h2 {
-  margin-bottom: 5px;
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilo da tabela de edição */
+table:last-child {
+  margin-top: 40px;
+}
+
+/* Estilo dos seletores de quantidade */
+select {
+  margin-left: 10px;
+}
+
+/* Estilo responsivo para telas de smartphone */
+@media screen and (max-width: 600px) {
+  /* Estilo da tabela de equipes */
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 5px;
+  }
+
+  /* Estilo da tabela de edição */
+  table:last-child {
+    font-size: 14px;
+  }
+
+  select {
+    margin-left: 5px;
+  }
 }

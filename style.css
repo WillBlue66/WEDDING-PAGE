@@ -32,11 +32,6 @@ table:last-child {
   margin-top: 40px;
 }
 
-/* Estilo dos seletores de quantidade */
-select {
-  margin-left: 10px;
-}
-
 /* Estilo responsivo para telas de smartphone */
 @media screen and (max-width: 600px) {
   /* Estilo da tabela de equipes */
@@ -51,9 +46,5 @@ select {
   /* Estilo da tabela de edição */
   table:last-child {
     font-size: 14px;
-  }
-
-  select {
-    margin-left: 5px;
   }
 }

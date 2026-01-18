@@ -2,184 +2,253 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio Seu Primo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instagram do Seu Primo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Reset e Configurações Gerais */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            background-color: #8600c0; /* Fundo Roxo solicitado */
-            font-family: sans-serif;
-            height: 100vh; /* Ocupa a altura total da tela */
+            background-color: #fafafa; /* Fundo cinza claro do Insta */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden; /* Impede rolagem na página principal */
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        /* Área da Logo */
-        .header {
+        /* Container Principal (Simula a tela do celular) */
+        .app-container {
             width: 100%;
-            padding: 15px 0;
-            text-align: center;
-            flex-shrink: 0; /* Impede que a logo encolha demais */
-            z-index: 20;
+            max-width: 470px; /* Largura máxima estilo feed desktop */
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            margin-top: 20px; /* Espaço no topo em telas grandes */
+            height: fit-content;
+        }
+        @media (max-width: 480px) {
+            .app-container { margin-top: 0; border: none; max-width: 100%; }
         }
 
-        .logo {
-            height: 80px; /* Tamanho da logo (ajuste se precisar) */
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); /* Sombra leve na logo */
-        }
-
-        /* Container do Carrossel */
-        .carousel-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 500px; /* Limite de largura para PC */
-            flex-grow: 1; /* Ocupa o resto do espaço disponível */
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; /* Força o alinhamento */
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Esconde barra de rolagem Firefox */
-        }
-        
-        .carousel-track::-webkit-scrollbar { display: none; /* Esconde barra Chrome/Safari */ }
-
-        /* O "Slide" individual */
-        .slide {
-            min-width: 100%; /* Garante que ocupe 100% da largura do container */
-            height: 100%;
-            scroll-snap-align: center; /* Trava no centro */
-            scroll-snap-stop: always; /* Força a parada, evita pular slides */
+        /* Barra Superior Estilo Insta */
+        .insta-nav {
+            height: 54px;
+            border-bottom: 1px solid #dbdbdb;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
         }
 
-        .pagina-imagem {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Mostra a imagem inteira sem cortar */
+        /* Estilos do Post */
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border-bottom: 1px solid #efefef;
+        }
+        .profile-pic {
+            width: 32px; height: 32px;
+            border-radius: 50%; border: 1px solid #dbdbdb;
+            margin-right: 10px; object-fit: cover;
+        }
+        .username { font-weight: 600; font-size: 14px; flex-grow: 1; color: #262626; text-decoration: none; }
+        .options-icon { color: #262626; cursor: pointer; }
+
+        /* A Imagem "Capa" clicável no feed */
+        .post-media-trigger {
+            position: relative;
+            width: 100%;
+            cursor: pointer; /* Mostra que é clicável */
+        }
+        .post-media-trigger img { width: 100%; display: block; }
+        .gallery-icon {
+            position: absolute; top: 10px; right: 10px;
+            color: white; background-color: rgba(0,0,0,0.3);
+            padding: 5px; border-radius: 4px;
+        }
+
+        /* Ações do Post (Likes, etc) */
+        .post-actions { padding: 12px 14px 0; display: flex; }
+        .post-actions i { font-size: 24px; margin-right: 16px; color: #262626; cursor: pointer; }
+        .post-actions .save-icon { margin-left: auto; margin-right: 0; }
+        .post-details { padding: 0 14px 14px; font-size: 14px; }
+        .likes-count { font-weight: 600; margin-bottom: 8px; display: block; margin-top: 8px; }
+        .caption { line-height: 1.4; }
+        .caption .username { margin-right: 5px; }
+
+        /* =========================================
+           MODAL TELA CHEIA (O Carrossel Real)
+        ========================================= */
+        .fullscreen-modal {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95); /* Fundo escuro */
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Botão Fechar Modal */
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* Estilos do Carrossel (Reciclados do anterior) */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%; height: 85%; /* Ocupa a maior parte da tela */
+            display: flex; align-items: center; overflow: hidden;
+        }
+        .carousel-track {
+            display: flex;
+            width: 100%; height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        
+        /* Slides no Modal - Importante: object-fit contain */
+        .slide {
+            min-width: 100%; height: 100%;
+            scroll-snap-align: center; scroll-snap-stop: always;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pagina-imagem-modal {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain; /* Garante que a imagem inteira apareça */
             display: block;
         }
 
-        /* Botões de Navegação */
+        /* Navegação do Modal */
         .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.4);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            color: white; border: none; background: none;
+            font-size: 40px; cursor: pointer; z-index: 10; padding: 20px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
-
-        .prev { left: 10px; display: none; }
-        .next { right: 10px; animation: pulsar 1.5s infinite; }
-
-        @keyframes pulsar {
-            0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-            70% { transform: translateY(-50%) scale(1.1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-
-        /* Contador */
+        .prev { left: 0; display: none;}
+        .next { right: 0; }
         .contador {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0,0,0,0.6);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            pointer-events: none;
+            text-align: center; color: #999; margin-top: 15px; font-size: 14px;
         }
-
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <img src="copo.png" alt="Logo" class="logo">
+    <div class="app-container">
+        <div class="insta-nav">Instagram do Primo</div>
+
+        <article>
+            <header class="post-header">
+                <img src="copo.png" alt="Perfil" class="profile-pic">
+                <a href="#" class="username">seuprimo_oficial</a>
+                <i class="fas fa-ellipsis-h options-icon"></i>
+            </header>
+
+            <div class="post-media-trigger" id="openFullscreenBtn">
+                <img src="PAG 1.jpeg" alt="Capa do Cardápio">
+                <div class="gallery-icon"><i class="fas fa-clone"></i></div>
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-actions">
+                    <i class="far fa-heart"></i> <i class="far fa-comment"></i>
+                    <i class="far fa-paper-plane"></i>
+                    <i class="far fa-bookmark save-icon"></i>
+                </div>
+                <div class="post-details">
+                    <span class="likes-count">Curtido por 2.435 pessoas</span>
+                    <div class="caption">
+                        <a href="#" class="username">seuprimo_oficial</a>
+                        <span>Toque na imagem acima para abrir nosso cardápio completo em tela cheia! 🍔📱</span>
+                    </div>
+                </div>
+            </footer>
+        </article>
     </div>
 
-    <div class="carousel-wrapper">
-        <button class="nav-btn prev" id="btnPrev">❮</button>
-        <button class="nav-btn next" id="btnNext">❯</button>
+    <div id="fullscreenModal" class="fullscreen-modal">
+        <span class="close-modal" id="closeModalBtn">&times;</span>
         
-        <div class="carousel-track" id="track">
-            <div class="slide"><img src="PAG 1.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 2.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 3.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 4.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 5.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 6.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 7.jpeg" class="pagina-imagem"></div>
-            <div class="slide"><img src="PAG 8.jpeg" class="pagina-imagem"></div>
+        <div class="carousel-wrapper">
+            <button class="nav-btn prev" id="btnPrev">❮</button>
+            <button class="nav-btn next" id="btnNext">❯</button>
+            
+            <div class="carousel-track" id="track">
+                <div class="slide"><img src="PAG 1.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 2.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 3.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 4.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 5.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 6.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 7.jpeg" class="pagina-imagem-modal"></div>
+                <div class="slide"><img src="PAG 8.jpeg" class="pagina-imagem-modal"></div>
+            </div>
         </div>
-
         <div class="contador" id="contador">1 / 8</div>
     </div>
 
     <script>
+        // Elementos do Modal
+        const modal = document.getElementById("fullscreenModal");
+        const openBtn = document.getElementById("openFullscreenBtn");
+        const closeBtn = document.getElementById("closeModalBtn");
+        
+        // Elementos do Carrossel (dentro do modal)
         const track = document.getElementById('track');
         const btnPrev = document.getElementById('btnPrev');
         const btnNext = document.getElementById('btnNext');
         const contador = document.getElementById('contador');
         const totalPaginas = 8;
 
+        // --- Lógica de Abrir/Fechar Modal ---
+        openBtn.onclick = function() {
+            modal.style.display = "flex"; // Mostra o modal
+            atualizarInterface(); // Atualiza o carrossel ao abrir
+            document.body.style.overflow = "hidden"; // Trava a rolagem do fundo
+        }
+        closeBtn.onclick = function() {
+            modal.style.display = "none"; // Esconde o modal
+            document.body.style.overflow = "auto"; // Destrava a rolagem
+        }
+
+        // --- Lógica do Carrossel (igual ao anterior) ---
         function atualizarInterface() {
             const width = track.offsetWidth;
             const scrollLeft = track.scrollLeft;
-            // Cálculo mais preciso para saber a página atual
             let paginaAtual = Math.round(scrollLeft / width) + 1;
-            
-            // Garante que não passe de 1 ou 8
             if (paginaAtual < 1) paginaAtual = 1;
             if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
-
+            
             contador.innerText = paginaAtual + ' / ' + totalPaginas;
-
-            btnPrev.style.display = paginaAtual === 1 ? 'none' : 'flex';
-            btnNext.style.display = paginaAtual === totalPaginas ? 'none' : 'flex';
+            btnPrev.style.display = paginaAtual === 1 ? 'none' : 'block';
+            btnNext.style.display = paginaAtual === totalPaginas ? 'none' : 'block';
         }
 
-        // Eventos de clique
         btnNext.addEventListener('click', () => {
             track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' });
         });
-
         btnPrev.addEventListener('click', () => {
             track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' });
         });
-
-        // Detecta rolagem (swipe)
         track.addEventListener('scroll', () => {
-            // Pequeno delay para garantir performance no celular
             window.requestAnimationFrame(atualizarInterface);
         });
-
         window.addEventListener('resize', atualizarInterface);
     </script>
 

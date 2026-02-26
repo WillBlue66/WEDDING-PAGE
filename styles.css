@@ -13,6 +13,7 @@
 
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
+
 body{
   font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: radial-gradient(1200px 600px at 20% 0%, #121526 0%, var(--bg) 50%) fixed;
@@ -37,6 +38,7 @@ a:hover{ opacity:.92; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
+
 .header__inner{
   display:flex;
   align-items:center;
@@ -44,9 +46,10 @@ a:hover{ opacity:.92; }
   padding: 14px 0;
 }
 
+/* NOME MAIOR + FONTE BLACK MODERNA */
 .brand{
   font-weight: 900;       /* BLACK */
-  font-size: 30px;        /* maior */
+  font-size: 32px;        /* maior */
   letter-spacing: 0.3px;
   line-height: 1;
 }
@@ -57,10 +60,12 @@ a:hover{ opacity:.92; }
   font-weight: 600;
   color: var(--muted);
 }
+
 .nav a{
   padding: 8px 10px;
   border-radius: 10px;
 }
+
 .nav a:hover{
   background: rgba(255,255,255,.06);
   color: var(--text);
@@ -75,12 +80,14 @@ a:hover{ opacity:.92; }
 .hero{
   padding: 54px 0 28px;
 }
+
 .hero__inner{
   display:grid;
   grid-template-columns: 1.2fr .8fr;
   gap: 22px;
   align-items: stretch;
 }
+
 .kicker{
   color: var(--muted);
   font-weight: 800;
@@ -89,11 +96,13 @@ a:hover{ opacity:.92; }
   font-size: 12px;
   margin: 0 0 10px;
 }
+
 h1{
   font-size: clamp(28px, 3.2vw, 44px);
   line-height: 1.1;
   margin: 0 0 12px;
 }
+
 .sub{
   color: var(--muted);
   margin: 0 0 18px;
@@ -106,6 +115,7 @@ h1{
   flex-wrap: wrap;
   margin-bottom: 14px;
 }
+
 .btn{
   display:inline-flex;
   align-items:center;
@@ -115,12 +125,15 @@ h1{
   border: 1px solid var(--line);
   font-weight: 800;
 }
+
 .btn--primary{
   background: rgba(255,255,255,.14);
 }
+
 .btn--ghost{
   background: transparent;
 }
+
 .btn:hover{
   transform: translateY(-1px);
 }
@@ -133,6 +146,7 @@ h1{
   font-weight: 600;
   font-size: 13px;
 }
+
 .dot{ opacity:.7; }
 
 .hero__card{
@@ -145,6 +159,7 @@ h1{
   position: relative;
   overflow:hidden;
 }
+
 .hero__cardOverlay{
   position:absolute;
   inset: 0;
@@ -154,10 +169,12 @@ h1{
   padding: 18px;
   background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
 }
+
 .cardTitle{
   margin:0 0 6px;
   font-weight: 900;
 }
+
 .cardText{
   margin:0;
   color: rgba(233,236,241,.86);
@@ -174,32 +191,38 @@ h1{
 .section{
   padding: 34px 0;
 }
+
 .section--alt{
   background: rgba(255,255,255,.03);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
+
 h2{
   margin: 0 0 14px;
   font-size: 22px;
   font-weight: 900;
 }
+
 .grid{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
+
 .tile{
   border: 1px solid var(--line);
   background: var(--card);
   border-radius: var(--radius);
   padding: 16px;
 }
+
 .tile h3{
   margin: 0 0 8px;
   font-weight: 900;
   font-size: 16px;
 }
+
 .tile p{
   margin: 0;
   color: var(--muted);
@@ -223,6 +246,7 @@ h2{
   flex-wrap: wrap;
   margin-top: 12px;
 }
+
 .contact__btn{
   display:inline-flex;
   align-items:center;
@@ -233,6 +257,7 @@ h2{
   background: var(--card2);
   font-weight: 900;
 }
+
 .contact__btn:hover{
   transform: translateY(-1px);
 }
@@ -249,6 +274,7 @@ h2{
   padding: 18px 0 26px;
   color: var(--muted);
 }
+
 .footer__inner{
   display:flex;
   gap:10px;
@@ -257,8 +283,10 @@ h2{
   border-top: 1px solid var(--line);
   padding-top: 16px;
 }
+
 .footer a{
   color: var(--muted);
   font-weight: 700;
 }
+
 .footer a:hover{ color: var(--text); }

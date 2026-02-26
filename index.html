@@ -13,10 +13,10 @@
     <div class="container header__inner">
       <a class="brand" href="../">Will Alves</a>
 
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="../#servicos">Serviços</a>
+      <nav class="nav" aria-label="Navegação do portfólio">
+        <a href="../">Início</a>
         <a class="active" href="./">Portfólio</a>
-        <a href="../#contato">Contato</a>
+        <a href="#contato">Contato</a>
       </nav>
     </div>
   </header>
@@ -25,29 +25,33 @@
     <section class="section">
       <div class="container">
         <h1 class="pageTitle">Portfólio</h1>
-        <p class="sub">
-          Substitua os cards pelos seus vídeos (YouTube/Vimeo) ou por thumbs que levam para um link.
+        <p class="subtitle">
+          Alguns trabalhos selecionados. Clique para assistir.
         </p>
 
+        <!-- GRID DE TRABALHOS -->
         <div class="workGrid">
+          <!-- Card 1 -->
           <a class="workCard" href="#" target="_blank" rel="noopener">
-            <div class="thumb"></div>
+            <div class="thumb" aria-hidden="true"></div>
             <div class="workInfo">
               <div class="workTitle">Casamento — Nome do casal</div>
               <div class="workMeta">Highlight • 3–6 min</div>
             </div>
           </a>
 
+          <!-- Card 2 -->
           <a class="workCard" href="#" target="_blank" rel="noopener">
-            <div class="thumb"></div>
+            <div class="thumb" aria-hidden="true"></div>
             <div class="workInfo">
               <div class="workTitle">Pré-wedding — Local</div>
               <div class="workMeta">Teaser • 30–60s</div>
             </div>
           </a>
 
+          <!-- Card 3 -->
           <a class="workCard" href="#" target="_blank" rel="noopener">
-            <div class="thumb"></div>
+            <div class="thumb" aria-hidden="true"></div>
             <div class="workInfo">
               <div class="workTitle">Cerimônia — Filme</div>
               <div class="workMeta">Filme • 10–20 min</div>
@@ -55,8 +59,34 @@
           </a>
         </div>
 
+        <div class="divider"></div>
+
+        <!-- CONTATO (sem formulário) -->
+        <section id="contato" class="contactSection">
+          <h2 class="sectionTitle">Contato</h2>
+          <p class="subtitle">Me chama direto:</p>
+
+          <div class="contactRow">
+            <a class="contactBtn" href="https://instagram.com/SEUINSTAGRAM" target="_blank" rel="noopener">
+              Instagram
+            </a>
+
+            <a class="contactBtn" href="https://wa.me/55SEUNUMERO" target="_blank" rel="noopener">
+              WhatsApp
+            </a>
+
+            <a class="contactBtn" href="mailto:SEUEMAIL@DOMINIO.COM">
+              E-mail
+            </a>
+          </div>
+
+          <p class="hint">
+            Troque <strong>SEUINSTAGRAM</strong>, <strong>55SEUNUMERO</strong> e <strong>SEUEMAIL</strong> no código.
+          </p>
+        </section>
+
         <div class="backRow">
-          <a class="btn btn--ghost" href="../">← Voltar para a Home</a>
+          <a class="btn btn--ghost" href="../">← Voltar</a>
         </div>
       </div>
     </section>
@@ -66,7 +96,7 @@
     <div class="container footer__inner">
       <span>© <span id="year"></span> Will Alves</span>
       <span class="dot">•</span>
-      <a href="../#contato">Contato</a>
+      <a href="#contato">Contato</a>
     </div>
   </footer>
 

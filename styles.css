@@ -6,6 +6,7 @@
   --muted:#b6bcc8;
   --line: rgba(255,255,255,.12);
   --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.08);
   --radius: 14px;
 }
 
@@ -36,7 +37,6 @@ a:hover{ opacity:.92; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-
 .header__inner{
   display:flex;
   align-items:center;
@@ -44,7 +44,7 @@ a:hover{ opacity:.92; }
   padding: 14px 0;
 }
 
-/* NOME MAIOR + FONTE BLACK MODERNA */
+/* “Will Alves” maior + BLACK moderna */
 .brand{
   font-weight: 900;
   font-size: 32px;
@@ -58,17 +58,14 @@ a:hover{ opacity:.92; }
   font-weight: 600;
   color: var(--muted);
 }
-
 .nav a{
   padding: 8px 10px;
   border-radius: 10px;
 }
-
 .nav a:hover{
   background: rgba(255,255,255,.06);
   color: var(--text);
 }
-
 .nav a.active{
   background: rgba(255,255,255,.08);
   color: var(--text);
@@ -90,11 +87,11 @@ a:hover{ opacity:.92; }
   line-height: 1.1;
 }
 
-.sub{
+.subtitle{
   margin: 0 0 18px;
   color: var(--muted);
   font-weight: 600;
-  max-width: 65ch;
+  max-width: 70ch;
 }
 
 /* Portfolio grid */
@@ -112,6 +109,11 @@ a:hover{ opacity:.92; }
   display:flex;
   flex-direction:column;
   min-height: 240px;
+  transition: transform .12s ease;
+}
+
+.workCard:hover{
+  transform: translateY(-2px);
 }
 
 .thumb{
@@ -124,12 +126,10 @@ a:hover{ opacity:.92; }
 .workInfo{
   padding: 14px;
 }
-
 .workTitle{
   font-weight: 900;
   margin-bottom: 6px;
 }
-
 .workMeta{
   color: var(--muted);
   font-weight: 600;
@@ -140,7 +140,53 @@ a:hover{ opacity:.92; }
   .workGrid{ grid-template-columns: 1fr; }
 }
 
-/* Buttons + footer */
+/* Divider */
+.divider{
+  margin: 22px 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Contact (sem formulário) */
+.sectionTitle{
+  margin: 0 0 8px;
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.contactRow{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.contactBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--card2);
+  font-weight: 900;
+  transition: transform .12s ease;
+}
+
+.contactBtn:hover{
+  transform: translateY(-1px);
+}
+
+.hint{
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Back button */
+.backRow{ margin-top: 18px; }
+
 .btn{
   display:inline-flex;
   align-items:center;
@@ -152,16 +198,13 @@ a:hover{ opacity:.92; }
 }
 
 .btn--ghost{ background: transparent; }
-
 .btn:hover{ transform: translateY(-1px); }
 
-.backRow{ margin-top: 18px; }
-
+/* Footer */
 .footer{
   padding: 18px 0 26px;
   color: var(--muted);
 }
-
 .footer__inner{
   display:flex;
   gap:10px;
@@ -170,8 +213,6 @@ a:hover{ opacity:.92; }
   border-top: 1px solid var(--line);
   padding-top: 16px;
 }
-
 .dot{ opacity:.7; }
-
 .footer a{ color: var(--muted); font-weight: 700; }
 .footer a:hover{ color: var(--text); }

@@ -102,3 +102,83 @@ if (reduceMotion) {
 
   sectionTitles.forEach(title => titleObserver.observe(title));
 }
+
+function extractYouTubeId(urlString) {
+  try {
+    const url = new URL(urlString, window.location.origin);
+    const host = url.hostname.replace('www.', '');
+
+    if (host === 'youtu.be') {
+      return url.pathname.split('/').filter(Boolean)[0] || null;
+    }
+
+    if (host.endsWith('youtube.com')) {
+      const v = url.searchParams.get('v');
+      if (v) return v;
+
+      const parts = url.pathname.split('/').filter(Boolean);
+      const markerIndex = parts.findIndex((part) => (
+        part === 'shorts' || part === 'embed' || part === 'live'
+      ));
+
+      if (markerIndex >= 0 && parts[markerIndex + 1]) {
+        return parts[markerIndex + 1];
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+const cardsWithLinks = Array.from(document.querySelectorAll('.card[href]'));
+
+cardsWithLinks.forEach((card) => {
+  const href = card.getAttribute('href');
+  const imageEl = card.querySelector('.thumb img');
+  if (!href || href === '#' || !imageEl) return;
+
+  const originalSrc = imageEl.getAttribute('src') || '';
+  const youtubeId = extractYouTubeId(href);
+
+  if (youtubeId) {
+    const maxres = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+    const hq = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+
+    imageEl.setAttribute('src', maxres);
+    imageEl.onerror = () => {
+      imageEl.onerror = null;
+      imageEl.src = hq;
+    };
+
+    if (!card.hasAttribute('data-yt-id')) {
+      card.setAttribute('data-yt-id', youtubeId);
+    }
+    return;
+  }
+
+  // Instagram/manual: mantém a capa definida no HTML.
+});
+
+const youtubeTitleCards = Array.from(document.querySelectorAll('.card[data-yt-id]'));
+
+youtubeTitleCards.forEach(async (card) => {
+  const videoId = card.getAttribute('data-yt-id');
+  if (!videoId) return;
+
+  const titleEl = card.querySelector('.cardtitle');
+  if (!titleEl) return;
+
+  try {
+    const url = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && typeof data.title === 'string' && data.title.trim()) {
+      titleEl.textContent = data.title.trim();
+    }
+  } catch {
+    // Mantém o título existente como fallback.
+  }
+});

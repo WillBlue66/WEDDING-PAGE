@@ -58,12 +58,10 @@ body{
   content:"";
   position:absolute;
   inset: 0;
-  background-image:
-    linear-gradient(90deg, rgba(0,0,0,0) 18%, rgba(0,0,0,.45) 40%, rgba(0,0,0,.82) 58%, rgba(0,0,0,1) 72%),
-    url("assets/will1.png");
-  background-repeat: no-repeat, no-repeat;
-  background-size: 100% 100%, auto 118%;
-  background-position: center, -56px center;
+  background-image: url("assets/will1.png");
+  background-repeat: no-repeat;
+  background-size: auto 112%;
+  background-position: -56px 56%;
   opacity: .38;
   z-index: -2;
 }
@@ -72,7 +70,7 @@ body{
   content:"";
   position:absolute;
   inset: 0;
-  background: rgba(0,0,0,.25);
+  background: transparent;
   z-index: -1;
 }
 
@@ -414,11 +412,9 @@ body{
   .contact{ justify-content: flex-start; }
 
   .hero::before{
-    background-image:
-      linear-gradient(90deg, rgba(0,0,0,0) 12%, rgba(0,0,0,.52) 38%, rgba(0,0,0,.86) 56%, rgba(0,0,0,1) 74%),
-      url("assets/will1.png");
-    background-size: 100% 100%, cover;
-    background-position: center, 18% center;
+    background-image: url("assets/will1.png");
+    background-size: auto 108%;
+    background-position: 18% 0%;
     opacity: .34;
   }
 
@@ -466,6 +462,11 @@ body{
 }
 
 @media (max-width: 640px){
+  .hero::before{
+    background-size: auto 104%;
+    background-position: 20% 0%;
+  }
+
   .grid{
     grid-template-columns: 1fr;
   }

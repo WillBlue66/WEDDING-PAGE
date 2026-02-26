@@ -147,6 +147,44 @@ function extractInstagramPath(urlString) {
   }
 }
 
+function decodeHtmlEntities(value) {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+function extractOgImageFromHtml(html) {
+  const patterns = [
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["'][^>]*>/i,
+  ];
+
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match && match[1]) {
+      return decodeHtmlEntities(match[1]);
+    }
+  }
+
+  return null;
+}
+
+async function fetchInstagramOgImage(instagramUrl) {
+  try {
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(instagramUrl)}`;
+    const res = await fetch(proxyUrl);
+    if (!res.ok) return null;
+
+    const html = await res.text();
+    return extractOgImageFromHtml(html);
+  } catch {
+    return null;
+  }
+}
+
 const cardsWithLinks = Array.from(document.querySelectorAll('.card[href]'));
 
 cardsWithLinks.forEach((card) => {
@@ -177,8 +215,24 @@ cardsWithLinks.forEach((card) => {
   if (!instagramData) return;
 
   const instagramCover = `https://www.instagram.com/${instagramData.type}/${instagramData.code}/media/?size=l`;
+  const instagramPostUrl = `https://www.instagram.com/${instagramData.type}/${instagramData.code}/`;
   imageEl.setAttribute('src', instagramCover);
-  imageEl.onerror = () => {
+  let triedProxy = false;
+
+  imageEl.onerror = async () => {
+    if (!triedProxy) {
+      triedProxy = true;
+      const proxyCover = await fetchInstagramOgImage(instagramPostUrl);
+      if (proxyCover) {
+        imageEl.onerror = () => {
+          imageEl.onerror = null;
+          if (originalSrc) imageEl.src = originalSrc;
+        };
+        imageEl.src = proxyCover;
+        return;
+      }
+    }
+
     imageEl.onerror = null;
     if (originalSrc) imageEl.src = originalSrc;
   };

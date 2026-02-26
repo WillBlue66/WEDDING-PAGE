@@ -3,128 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Will Alves — filmes de casamento, ensaios e histórias reais." />
-  <title>Will Alves — Wedding Films</title>
+  <meta name="description" content="Portfólio — Will Alves" />
+  <title>Portfólio — Will Alves</title>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
-      <a class="brand" href="./">Will Alves</a>
+      <a class="brand" href="../">Will Alves</a>
 
       <nav class="nav" aria-label="Navegação principal">
-        <a href="#servicos">Serviços</a>
-        <a href="./PORTFOLIO/">Portfólio</a>
-        <a href="#contato">Contato</a>
+        <a href="../#servicos">Serviços</a>
+        <a class="active" href="./">Portfólio</a>
+        <a href="../#contato">Contato</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero__inner">
-        <div class="hero__text">
-          <p class="kicker">Wedding Films</p>
-          <h1>Filmes de casamento com estética limpa e narrativa.</h1>
-          <p class="sub">
-            Captação discreta, direção sensível e edição com ritmo. Entrego filmes que você vai querer rever.
-          </p>
-
-          <div class="actions">
-            <a class="btn btn--primary" href="./PORTFOLIO/">Ver portfólio</a>
-            <a class="btn btn--ghost" href="#contato">Pedir orçamento</a>
-          </div>
-
-          <div class="meta">
-            <span>Bragança–PA</span>
-            <span class="dot">•</span>
-            <span>Disponível para viagens</span>
-          </div>
-        </div>
-
-        <div class="hero__card" role="img" aria-label="Imagem de destaque do portfólio">
-          <div class="hero__cardOverlay">
-            <p class="cardTitle">Destaque</p>
-            <p class="cardText">Troque esta área por uma foto/thumbnail do seu trabalho.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="servicos" class="section">
+    <section class="section">
       <div class="container">
-        <h2>Serviços</h2>
-
-        <div class="grid">
-          <article class="tile">
-            <h3>Filme do Casamento</h3>
-            <p>Do making of à festa. História completa, com edição moderna e emoção no ponto.</p>
-          </article>
-
-          <article class="tile">
-            <h3>Teaser / Reels</h3>
-            <p>Versões curtas para Instagram. Perfeitas para postar rápido e bonito.</p>
-          </article>
-
-          <article class="tile">
-            <h3>Pré-wedding</h3>
-            <p>Ensaio leve, dirigido e com estética cinematográfica — sem cara de “posado demais”.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt">
-      <div class="container">
-        <h2>Por que funciona</h2>
-
-        <div class="grid">
-          <article class="tile">
-            <h3>Estética minimal</h3>
-            <p>Cores limpas, composições simples e imagem com cara premium.</p>
-          </article>
-
-          <article class="tile">
-            <h3>Ritmo e narrativa</h3>
-            <p>Não é só “cenas bonitas”: é construção de história, com começo, meio e fim.</p>
-          </article>
-
-          <article class="tile">
-            <h3>Entrega organizada</h3>
-            <p>Arquivos bem nomeados, link de entrega e tudo alinhado no briefing.</p>
-          </article>
-        </div>
-
-        <div class="ctaRow">
-          <a class="btn btn--primary" href="./PORTFOLIO/">Ir para o portfólio</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTATO: sem formulário -->
-    <section id="contato" class="section">
-      <div class="container">
-        <h2>Contato</h2>
-        <p class="sub">Sem formulário. Me chama direto:</p>
-
-        <div class="contact">
-          <a class="contact__btn" href="https://instagram.com/SEUINSTAGRAM" target="_blank" rel="noopener">
-            Instagram
-          </a>
-
-          <a class="contact__btn" href="https://wa.me/55SEUNUMERO" target="_blank" rel="noopener">
-            WhatsApp
-          </a>
-
-          <a class="contact__btn" href="mailto:SEUEMAIL@DOMINIO.COM">
-            E-mail
-          </a>
-        </div>
-
-        <p class="hint">
-          Troque <strong>SEUINSTAGRAM</strong>, <strong>55SEUNUMERO</strong> e <strong>SEUEMAIL</strong> no código.
+        <h1 class="pageTitle">Portfólio</h1>
+        <p class="sub">
+          Substitua os cards pelos seus vídeos (YouTube/Vimeo) ou por thumbs que levam para um link.
         </p>
+
+        <div class="workGrid">
+          <a class="workCard" href="#" target="_blank" rel="noopener">
+            <div class="thumb"></div>
+            <div class="workInfo">
+              <div class="workTitle">Casamento — Nome do casal</div>
+              <div class="workMeta">Highlight • 3–6 min</div>
+            </div>
+          </a>
+
+          <a class="workCard" href="#" target="_blank" rel="noopener">
+            <div class="thumb"></div>
+            <div class="workInfo">
+              <div class="workTitle">Pré-wedding — Local</div>
+              <div class="workMeta">Teaser • 30–60s</div>
+            </div>
+          </a>
+
+          <a class="workCard" href="#" target="_blank" rel="noopener">
+            <div class="thumb"></div>
+            <div class="workInfo">
+              <div class="workTitle">Cerimônia — Filme</div>
+              <div class="workMeta">Filme • 10–20 min</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="backRow">
+          <a class="btn btn--ghost" href="../">← Voltar para a Home</a>
+        </div>
       </div>
     </section>
   </main>
@@ -133,7 +66,7 @@
     <div class="container footer__inner">
       <span>© <span id="year"></span> Will Alves</span>
       <span class="dot">•</span>
-      <a href="./PORTFOLIO/">Portfólio</a>
+      <a href="../#contato">Contato</a>
     </div>
   </footer>
 
